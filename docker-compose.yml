@@ -1,0 +1,22 @@
+version: "3.3"
+services:
+  web:
+    image: admin-node
+    container_name: web
+    ports:
+      - "3001:3001"
+    volumes:
+      - build:/usr/src/app/dist
+
+  nginx:
+    image: nginx:1.23.3-alpine
+    volumes:
+      - build:/usr/share/nginx/html
+    ports:
+      - "8080:80"
+    links:
+      - web
+
+volumes:
+  build:
+    driver: local
